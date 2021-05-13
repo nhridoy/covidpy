@@ -4,7 +4,7 @@ setup(
     name='covidpy',
     version='0.1.0',
     description='Detailed Regular Information about World\'s Covid19 Data',
-    url='https://github.com/shuds13/pyexample',
+    url='https://github.com/hridoyboss12/covidpy',
     author='Nahidujjaman Hridoy',
     author_email='nahidujjamanhridoy@gmail.com',
     license='BSD 2-clause',
