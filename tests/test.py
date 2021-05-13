@@ -5,4 +5,4 @@ countries = ListCountries()
 country = CountryData("Bangladesh")
 all_data = AllData()
 
-print(country)
+print(world)

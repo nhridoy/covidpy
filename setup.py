@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name='covidpy',
-    version='0.1.3',
+    version='0.1.4',
     description='Detailed Regular Information about World\'s Covid19 Data',
     long_description=README,
     long_description_content_type="text/markdown",

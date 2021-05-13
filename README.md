@@ -59,14 +59,14 @@ Result:
 
 ```
 {
-    'Total_Cases': '161080616', 
-    'New_Cases': '3853',
-    'Total_Deaths': '3345018',
-    'New_Deaths': '274',
-    'Total_Recovered': '139849282',
-    'New_Recovered': '2483',
-    'Active_Cases': '17886316',
-    'Serious_Cases': '105218'
+    'Total_Cases': 161080616, 
+    'New_Cases': 3853,
+    'Total_Deaths': 3345018,
+    'New_Deaths': 274,
+    'Total_Recovered': 139849282,
+    'New_Recovered': 2483,
+    'Active_Cases': 17886316,
+    'Serious_Cases': 105218
 }
 ```
 

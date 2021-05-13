@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: covidpy
-Version: 0.1.3
+Version: 0.1.4
 Summary: Detailed Regular Information about World's Covid19 Data
 Home-page: https://github.com/hridoyboss12/covidpy
 Author: Nahidujjaman Hridoy
@@ -67,14 +67,14 @@ Description: # covidpy
         
         ```
         {
-            'Total_Cases': '161080616', 
-            'New_Cases': '3853',
-            'Total_Deaths': '3345018',
-            'New_Deaths': '274',
-            'Total_Recovered': '139849282',
-            'New_Recovered': '2483',
-            'Active_Cases': '17886316',
-            'Serious_Cases': '105218'
+            'Total_Cases': 161080616, 
+            'New_Cases': 3853,
+            'Total_Deaths': 3345018,
+            'New_Deaths': 274,
+            'Total_Recovered': 139849282,
+            'New_Recovered': 2483,
+            'Active_Cases': 17886316,
+            'Serious_Cases': 105218
         }
         ```
         

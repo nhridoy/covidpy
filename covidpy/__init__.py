@@ -4,7 +4,7 @@ covidpy.
 Detailed Regular Information about World\'s Covid19 Data.
 """
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __author__ = 'Nahidujjaman Hridoy'
 __credits__ = 'Worldometer'
 
@@ -57,14 +57,14 @@ def WorldData():
         world_total_serious = int(world.find_all("td")[9].text[:].replace(',', ''))
 
     world_data = {
-        "Total_Cases": f"{world_total_cases}",
-        "New_Cases": f"{world_new_cases}",
-        "Total_Deaths": f"{world_total_deaths}",
-        "New_Deaths": f"{world_new_deaths}",
-        "Total_Recovered": f"{world_total_recovered}",
-        "New_Recovered": f"{world_new_recovered}",
-        "Active_Cases": f"{world_total_active}",
-        "Serious_Cases": f"{world_total_serious}"
+        "Total_Cases": world_total_cases,
+        "New_Cases": world_new_cases,
+        "Total_Deaths": world_total_deaths,
+        "New_Deaths": world_new_deaths,
+        "Total_Recovered": world_total_recovered,
+        "New_Recovered": world_new_recovered,
+        "Active_Cases": world_total_active,
+        "Serious_Cases": world_total_serious
     }
 
     return world_data
