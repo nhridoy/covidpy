@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+setup.py
+covidpy/__init__.py
+covidpy.egg-info/PKG-INFO
+covidpy.egg-info/SOURCES.txt
+covidpy.egg-info/dependency_links.txt
+covidpy.egg-info/requires.txt
+covidpy.egg-info/top_level.txt
