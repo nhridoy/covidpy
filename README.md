@@ -3,7 +3,9 @@
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-[![PyPI download total](https://img.shields.io/pypi/dt/ansicolortags.svg)](https://pypi.org/project/covidpy/)
+[![Downloads](https://pepy.tech/badge/covidpy/week)](https://pepy.tech/project/covidpy)
+[![Downloads](https://pepy.tech/badge/covidpy/month)](https://pepy.tech/project/covidpy)
+[![Downloads](https://pepy.tech/badge/covidpy)](https://pepy.tech/project/covidpy)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/ansicolortags.svg)](https://pypi.org/project/covidpy/)
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/hridoyboss12/Covidpy)
