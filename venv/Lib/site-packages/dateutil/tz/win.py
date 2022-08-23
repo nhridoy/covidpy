@@ -129,21 +129,24 @@ class tzwinbase(tzrangebase):
 
     def __eq__(self, other):
         # Compare on all relevant dimensions, including name.
-        if not isinstance(other, tzwinbase):
-            return NotImplemented
-
-        return  (self._std_offset == other._std_offset and
-                 self._dst_offset == other._dst_offset and
-                 self._stddayofweek == other._stddayofweek and
-                 self._dstdayofweek == other._dstdayofweek and
-                 self._stdweeknumber == other._stdweeknumber and
-                 self._dstweeknumber == other._dstweeknumber and
-                 self._stdhour == other._stdhour and
-                 self._dsthour == other._dsthour and
-                 self._stdminute == other._stdminute and
-                 self._dstminute == other._dstminute and
-                 self._std_abbr == other._std_abbr and
-                 self._dst_abbr == other._dst_abbr)
+        return (
+            (
+                self._std_offset == other._std_offset
+                and self._dst_offset == other._dst_offset
+                and self._stddayofweek == other._stddayofweek
+                and self._dstdayofweek == other._dstdayofweek
+                and self._stdweeknumber == other._stdweeknumber
+                and self._dstweeknumber == other._dstweeknumber
+                and self._stdhour == other._stdhour
+                and self._dsthour == other._dsthour
+                and self._stdminute == other._stdminute
+                and self._dstminute == other._dstminute
+                and self._std_abbr == other._std_abbr
+                and self._dst_abbr == other._dst_abbr
+            )
+            if isinstance(other, tzwinbase)
+            else NotImplemented
+        )
 
     @staticmethod
     def list():
@@ -250,7 +253,7 @@ class tzwin(tzwinbase):
         self.hasdst = self._get_hasdst()
 
     def __repr__(self):
-        return "tzwin(%s)" % repr(self._name)
+        return f"tzwin({repr(self._name)})"
 
     def __reduce__(self):
         return (self.__class__, (self._name,))
@@ -324,7 +327,7 @@ class tzwinlocal(tzwinbase):
 
     def __str__(self):
         # str will return the standard name, not the daylight name.
-        return "tzwinlocal(%s)" % repr(self._std_abbr)
+        return f"tzwinlocal({repr(self._std_abbr)})"
 
     def __reduce__(self):
         return (self.__class__, ())
@@ -352,7 +355,7 @@ def valuestodict(key):
 
     for i in range(size):
         key_name, value, dtype = winreg.EnumValue(key, i)
-        if dtype == winreg.REG_DWORD or dtype == winreg.REG_DWORD_LITTLE_ENDIAN:
+        if dtype in [winreg.REG_DWORD, winreg.REG_DWORD_LITTLE_ENDIAN]:
             # If it's a DWORD (32-bit integer), it's stored as unsigned - convert
             # that to a proper signed integer
             if value & (1 << 31):
