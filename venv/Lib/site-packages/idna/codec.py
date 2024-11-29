@@ -11,20 +11,14 @@ class Codec(codecs.Codec):
         if errors != 'strict':
             raise IDNAError("Unsupported error handling \"{0}\"".format(errors))
 
-        if not data:
-            return "", 0
-
-        return encode(data), len(data)
+        return (encode(data), len(data)) if data else ("", 0)
 
     def decode(self, data, errors='strict'):
 
         if errors != 'strict':
             raise IDNAError("Unsupported error handling \"{0}\"".format(errors))
 
-        if not data:
-            return u"", 0
-
-        return decode(data), len(data)
+        return (decode(data), len(data)) if data else (u"", 0)
 
 class IncrementalEncoder(codecs.BufferedIncrementalEncoder):
     def _buffer_encode(self, data, errors, final):

@@ -56,7 +56,7 @@ def WorldData():
     else:
         world_total_serious = int(world.find_all("td")[9].text[:].replace(',', ''))
 
-    world_data = {
+    return {
         "Total_Cases": world_total_cases,
         "New_Cases": world_new_cases,
         "Total_Deaths": world_total_deaths,
@@ -64,22 +64,20 @@ def WorldData():
         "Total_Recovered": world_total_recovered,
         "New_Recovered": world_new_recovered,
         "Active_Cases": world_total_active,
-        "Serious_Cases": world_total_serious
+        "Serious_Cases": world_total_serious,
     }
-
-    return world_data
 
 
 def ListCountries():
     ### Scrapping Country Data ###
     countries = soup.find_all("table", {"class": "table-hover"})[0]
     countries = (countries.find_all("tr"))
-    counter = 0
-    empty_dataframe = []
-    for n in countries:
-        if n.find(["nobr", "a", "span"]) is not None:
-            empty_dataframe.append([counter, n.find(["nobr", "a", "span"]).text.upper()])
-        counter += 1
+    empty_dataframe = [
+        [counter, n.find(["nobr", "a", "span"]).text.upper()]
+        for counter, n in enumerate(countries)
+        if n.find(["nobr", "a", "span"]) is not None
+    ]
+
     countries_scapped = pd.DataFrame(empty_dataframe)[1:]
     countries_scapped.columns = ["Country_ID", "Country_Name"]
 
@@ -115,7 +113,7 @@ def CountryData(country=""):
     else:
         country_new_cases = int(countries[Country_ID_Selected].find_all("td")[3].text.replace("+", "").replace(",", ""))
 
-    if country_total_deaths == " " or country_total_deaths == "":
+    if country_total_deaths in [" ", ""]:
         country_total_deaths = 0
     else:
         country_total_deaths = int(
@@ -157,7 +155,7 @@ def CountryData(country=""):
         country_total_tests = int(
             countries[Country_ID_Selected].find_all("td")[12].text.replace("+", "").replace(",", ""))
 
-    country_data = {
+    return {
         "Country_Name": country,
         "Total_Cases": country_total_cases,
         "New_Cases": country_new_cases,
@@ -167,16 +165,13 @@ def CountryData(country=""):
         "New_Recovered": country_new_recovered,
         "Active_Cases": country_total_active,
         "Serious_Cases": country_total_serious,
-        "Total_Tests": country_total_tests
+        "Total_Tests": country_total_tests,
     }
-    return country_data
 
 
 def AllData():
     all_country_data = []
-    c = 0
     for country in countries_scapped[7:]["Country_Name"]:
-        c += 1
         country = country.upper()
         Country_ID_Selected = int(countries_scapped[countries_scapped["Country_Name"] == country]["Country_ID"])
         countries = soup.find_all("table", {"class": "table-hover"})[0]
@@ -193,19 +188,29 @@ def AllData():
         country_total_serious = countries[Country_ID_Selected].find_all("td")[9].text.replace("+", "").replace(",", "")
         country_total_tests = countries[Country_ID_Selected].find_all("td")[12].text.replace("+", "").replace(",", "")
 
-        if country_total_cases == "":
-            country_total_cases = 0
-        else:
-            country_total_cases = int(
-                countries[Country_ID_Selected].find_all("td")[2].text.replace("+", "").replace(",", ""))
+        country_total_cases = (
+            0
+            if country_total_cases == ""
+            else int(
+                countries[Country_ID_Selected]
+                .find_all("td")[2]
+                .text.replace("+", "")
+                .replace(",", "")
+            )
+        )
 
-        if country_new_cases == "":
-            country_new_cases = 0
-        else:
-            country_new_cases = int(
-                countries[Country_ID_Selected].find_all("td")[3].text.replace("+", "").replace(",", ""))
+        country_new_cases = (
+            0
+            if country_new_cases == ""
+            else int(
+                countries[Country_ID_Selected]
+                .find_all("td")[3]
+                .text.replace("+", "")
+                .replace(",", "")
+            )
+        )
 
-        if country_total_deaths == " " or country_total_deaths == "":
+        if country_total_deaths in [" ", ""]:
             country_total_deaths = 0
         else:
             country_total_deaths = int(

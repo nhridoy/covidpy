@@ -83,7 +83,7 @@ else:
 
             for arg, argname in zip(args, argnames):
                 if argname in kwargs:
-                    raise TypeError('Duplicate argument: {}'.format(argname))
+                    raise TypeError(f'Duplicate argument: {argname}')
 
                 kwargs[argname] = arg
 
@@ -123,10 +123,7 @@ else:
         args = dt.timetuple()[:6]
         args += (dt.microsecond, dt.tzinfo)
 
-        if fold:
-            return _DatetimeWithFold(*args)
-        else:
-            return datetime(*args)
+        return _DatetimeWithFold(*args) if fold else datetime(*args)
 
 
 def _validate_fromutc_inputs(f):
@@ -195,11 +192,9 @@ class _tzinfo(tzinfo):
         """
         if self.is_ambiguous(dt_wall):
             delta_wall = dt_wall - dt_utc
-            _fold = int(delta_wall == (dt_utc.utcoffset() - dt_utc.dst()))
+            return int(delta_wall == (dt_utc.utcoffset() - dt_utc.dst()))
         else:
-            _fold = 0
-
-        return _fold
+            return 0
 
     def _fold(self, dt):
         return getattr(dt, 'fold', 0)
@@ -311,10 +306,7 @@ class tzrangebase(_tzinfo):
 
     @tzname_in_python2
     def tzname(self, dt):
-        if self._isdst(dt):
-            return self._dst_abbr
-        else:
-            return self._std_abbr
+        return self._dst_abbr if self._isdst(dt) else self._std_abbr
 
     def fromutc(self, dt):
         """ Given a datetime in UTC, return local time """
@@ -340,11 +332,7 @@ class tzrangebase(_tzinfo):
 
         isdst = self._naive_isdst(dt_utc, utc_transitions)
 
-        if isdst:
-            dt_wall = dt + self._dst_offset
-        else:
-            dt_wall = dt + self._std_offset
-
+        dt_wall = dt + self._dst_offset if isdst else dt + self._std_offset
         _fold = int(not isdst and self.is_ambiguous(dt_wall))
 
         return enfold(dt_wall, fold=_fold)
@@ -387,22 +375,14 @@ class tzrangebase(_tzinfo):
         isdst = self._naive_isdst(dt, transitions)
 
         # Handle ambiguous dates
-        if not isdst and self.is_ambiguous(dt):
-            return not self._fold(dt)
-        else:
-            return isdst
+        return not self._fold(dt) if not isdst and self.is_ambiguous(dt) else isdst
 
     def _naive_isdst(self, dt, transitions):
         dston, dstoff = transitions
 
         dt = dt.replace(tzinfo=None)
 
-        if dston < dstoff:
-            isdst = dston <= dt < dstoff
-        else:
-            isdst = not dstoff <= dt < dston
-
-        return isdst
+        return dston <= dt < dstoff if dston < dstoff else not dstoff <= dt < dston
 
     @property
     def _dst_base_offset(self):
@@ -414,6 +394,6 @@ class tzrangebase(_tzinfo):
         return not (self == other)
 
     def __repr__(self):
-        return "%s(...)" % self.__class__.__name__
+        return f"{self.__class__.__name__}(...)"
 
     __reduce__ = object.__reduce__

@@ -39,7 +39,7 @@ class ZoneInfoFile(object):
                 links = {zl.name: self.zones[zl.linkname]
                          for zl in tf.getmembers() if
                          zl.islnk() or zl.issym()}
-                self.zones.update(links)
+                self.zones |= links
                 try:
                     metadata_json = tf.extractfile(tf.getmember(METADATA_FN))
                     metadata_str = metadata_json.read().decode('UTF-8')

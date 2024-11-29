@@ -32,7 +32,7 @@ def rebuild(filename, tag=None, format="gz", zonegroups=[], metadata=None):
         with open(os.path.join(zonedir, METADATA_FN), 'w') as f:
             json.dump(metadata, f, indent=4, sort_keys=True)
         target = os.path.join(moduledir, ZONEFILENAME)
-        with TarFile.open(target, "w:%s" % format) as tf:
+        with TarFile.open(target, f"w:{format}") as tf:
             for entry in os.listdir(zonedir):
                 entrypath = os.path.join(zonedir, entry)
                 tf.add(entrypath, entry)
